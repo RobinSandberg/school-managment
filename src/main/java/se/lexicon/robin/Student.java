@@ -1,7 +1,7 @@
 package se.lexicon.robin;
 
 public class Student {
-    private int id;
+    private final int id;
     private static int counter = 0;
     private String name;
     private String email;
@@ -11,8 +11,7 @@ public class Student {
         this.name = name;
         this.email = email;
         this.address = address;
-        counter++;
-        this.id = counter;
+        this.id = ++counter;
     }
 
     public int getId(){

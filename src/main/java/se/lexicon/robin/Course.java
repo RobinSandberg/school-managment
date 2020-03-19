@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Course {
-    private int id;
+    private final int id;
     private static int counter = 0;
     private String courseName;
     private LocalDate startDate;
@@ -15,8 +15,7 @@ public class Course {
         this.courseName = courseName;
         this.startDate = startDate;
         this.weekDuration = weekDuration;
-        counter++;
-        this.id = counter;
+        this.id = ++counter;
         students = new ArrayList<>();
     }
 
