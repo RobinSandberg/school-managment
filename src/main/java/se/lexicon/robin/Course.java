@@ -11,17 +11,17 @@ public class Course {
     private int weekDuration;
     private List<Student> students;
 
-    public Course(){
+    public Course(String courseName, LocalDate startDate , int weekDuration){
+        this.courseName = courseName;
+        this.startDate = startDate;
+        this.weekDuration = weekDuration;
+        counter++;
+        this.id = counter;
         students = new ArrayList<>();
     }
 
     public int getId(){
         return  this.id;
-    }
-
-    public void setId(){
-        counter++;
-        this.id = counter;
     }
 
     public String getCourseName(){
@@ -58,5 +58,9 @@ public class Course {
 
     public void unregister(Student student){
         this.students.remove(student);
+    }
+
+    public void reset(){
+        counter = 0;
     }
 }

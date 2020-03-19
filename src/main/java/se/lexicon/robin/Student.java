@@ -7,13 +7,16 @@ public class Student {
     private String email;
     private String address;
 
-    public int getId(){
-        return this.id;
-    }
-
-    public void setId(){
+    public Student(String name, String email , String address){
+        this.name = name;
+        this.email = email;
+        this.address = address;
         counter++;
         this.id = counter;
+    }
+
+    public int getId(){
+        return this.id;
     }
 
     public String getName(){
@@ -38,5 +41,9 @@ public class Student {
 
     public void setAddress(String address){
         this.address = address;
+    }
+
+    public void reset(){
+        counter = 0;
     }
 }

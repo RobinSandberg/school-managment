@@ -5,7 +5,6 @@ import se.lexicon.robin.Student;
 import se.lexicon.robin.data_access.CourseDaoList;
 import se.lexicon.robin.data_access.StudentDaoList;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -17,54 +16,56 @@ public class CommandLineFunctions implements CommandLine{
     boolean attempt;
     @Override
     public Student createNewStudent(){
-        Student student = new Student();
-        student.setId();
         attempt = true;
+        String name = "";
+        String address = "";
+        String email = "";
         while(attempt) {
             System.out.println("What is the student name.");
-            student.setName(getStringFromUser());
-            attempt = student.getName().isEmpty();
+            name = getStringFromUser();
+            attempt = name.isEmpty();
         }
         attempt = true;
         while(attempt) {
             System.out.println("What is the student address.");
-            student.setAddress(getStringFromUser());
-            attempt = student.getAddress().isEmpty();
+            address =  getStringFromUser();
+            attempt = address.isEmpty();
         }
         attempt = true;
         while(attempt) {
             System.out.println("What is the student email.");
-            student.setEmail(getStringFromUser());
-            attempt = student.getEmail().isEmpty();
+            email = getStringFromUser();
+            attempt = email.isEmpty();
         }
-        return student;
+        return new Student(name , email , address);
     }
 
     @Override
     public Course createNewCourse(){
-        Course course = new Course();
-        course.setId();
         attempt = true;
+        String courseName = "";
+        LocalDate startDate = LocalDate.parse("0001-01-01" , DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        int weekDuration = 0;
         while (attempt){
             System.out.println("What is the course name.");
-            course.setCourseName(getStringFromUser());
-            attempt = course.getCourseName().isEmpty();
+            courseName = getStringFromUser();
+            attempt = courseName.isEmpty();
         }
         boolean wrongFormatCheck = true;
         while(wrongFormatCheck) {
             System.out.println("What is the start date for the course Year-month-day.");
             try {
-                course.setStartDate(LocalDate.parse(getStringFromUser(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                startDate = LocalDate.parse(getStringFromUser(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 wrongFormatCheck = false;
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid date format!");
             }
         }
-        while(course.getWeekDuration() <= 0) {
+        while(weekDuration <= 0) {
             System.out.println("How many weeks is the course.");
-            course.setWeekDuration(getNumber());
+            weekDuration = getNumber();
         }
-        return course;
+        return new Course(courseName , startDate, weekDuration);
     }
 
     @Override
@@ -164,7 +165,10 @@ public class CommandLineFunctions implements CommandLine{
     }
 
 
-    static String getStringFromUser(){ return SCANNER.nextLine(); }
+    static String getStringFromUser(){
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
 
     static int getNumber(){
         boolean valid = false;

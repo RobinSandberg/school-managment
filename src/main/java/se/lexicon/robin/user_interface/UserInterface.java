@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.zip.DataFormatException;
+import java.util.Scanner;
 
 public class UserInterface {
 
@@ -34,9 +34,10 @@ public class UserInterface {
                     "\n11. Get students in course." +
                     "\n12. Show all students." +
                     "\n13. Show all course." +
+                    "\n14.Exit." +
                     "\n: INPUT: ");
 
-            int input = CommandLineFunctions.getNumber();
+            int input = getNumber();
 
             switch (input) {
                 case 1:
@@ -51,7 +52,7 @@ public class UserInterface {
                 case 2:
                     studentList();
                     System.out.println("What student you wanna edit type in the student Id:");
-                    int studentId = CommandLineFunctions.getNumber();
+                    int studentId = getNumber();
                     student = studentDaoList.findById(studentId);
                     if(student == null){
                         break;
@@ -60,8 +61,9 @@ public class UserInterface {
                         "\n1. Student name." +
                         "\n2. Student address." +
                         "\n3. Student email." +
+                        "\n4. Back to main menu." +
                         "\n: INPUT: ");
-                    input = CommandLineFunctions.getNumber();
+                    input = getNumber();
                     switch(input){
                         case 1:
                             student = commandLineFunctions.editStudentName(student);
@@ -75,6 +77,8 @@ public class UserInterface {
                             student = commandLineFunctions.editStudentEmail(student);
                             System.out.println(student.getEmail());
                             break;
+                        case 4:
+                            break;
                         default:
                             System.out.println("Not a valid input!");
                             break;
@@ -84,7 +88,7 @@ public class UserInterface {
                 case 3:
                     studentList();
                     System.out.println("What student you wanna remove type in the student Id:");
-                    studentId = CommandLineFunctions.getNumber();
+                    studentId = getNumber();
                     student = studentDaoList.findById(studentId);
                     boolean removed = studentDaoList.deleteStudent(student);
                     System.out.println("Student removed: " + removed);
@@ -101,7 +105,7 @@ public class UserInterface {
                 case 5:
                     courseList();
                     System.out.println("What course you wanna edit type in the course Id:");
-                    int courseId = CommandLineFunctions.getNumber();
+                    int courseId = getNumber();
                     course = courseDaoList.findById(courseId);
                     if(course == null){
                         break;
@@ -110,8 +114,9 @@ public class UserInterface {
                             "\n1. Course name." +
                             "\n2. Course start date." +
                             "\n3. Course  week duration." +
+                            "\n4. Back to main menu." +
                             "\n: INPUT: ");
-                    input = CommandLineFunctions.getNumber();
+                    input = getNumber();
                     switch(input) {
                         case 1:
                             course = commandLineFunctions.editCourseName(course);
@@ -126,6 +131,8 @@ public class UserInterface {
                             course = commandLineFunctions.editCourseDuration(course);
                             System.out.println(course.getWeekDuration());
                             break;
+                        case 4:
+                            break;
                         default:
                             System.out.println("Not a valid input!");
                             break;
@@ -134,7 +141,7 @@ public class UserInterface {
                 case 6:
                     courseList();
                     System.out.println("What course you wanna remove type in the course Id:");
-                    courseId = CommandLineFunctions.getNumber();
+                    courseId = getNumber();
                     course = courseDaoList.findById(courseId);
                     removed = courseDaoList.removeCourse(course);
                     System.out.println("Course removed: " + removed);
@@ -142,14 +149,14 @@ public class UserInterface {
                 case 7:
                     courseList();
                     System.out.println("What course you wanna register a student to type in the course Id:");
-                    courseId = CommandLineFunctions.getNumber();
+                    courseId = getNumber();
                     course = courseDaoList.findById(courseId);
                     if(course == null){
                         break;
                     }
                     studentList();
                     System.out.println("What student you wanna register to this course type in the student Id:");
-                    studentId = CommandLineFunctions.getNumber();
+                    studentId = getNumber();
                     student = studentDaoList.findById(studentId);
                     if(student == null){
                         break;
@@ -160,7 +167,7 @@ public class UserInterface {
                 case 8:
                     courseList();
                     System.out.println("What course you wanna unregister a student from type in the course Id:");
-                    courseId = CommandLineFunctions.getNumber();
+                    courseId = getNumber();
                     course = courseDaoList.findById(courseId);
                     if(course == null){
                         break;
@@ -172,7 +179,7 @@ public class UserInterface {
                         "\nStudent email: " +  course.getStudents().get(i).getEmail() + "\n");
                     }
                     System.out.println("What student you wanna unregister from this course type in the student Id:");
-                    studentId = CommandLineFunctions.getNumber();
+                    studentId = getNumber();
                     student = studentDaoList.findById(studentId);
                     if(student == null){
                         break;
@@ -184,12 +191,14 @@ public class UserInterface {
                     System.out.print("\nPick a option to find a student with." +
                             "\n1. Find by id." +
                             "\n2. Find by name." +
-                            "\n3. Find by email.\n");
-                    input = CommandLineFunctions.getNumber();
+                            "\n3. Find by email." +
+                            "\n4. Back to main menu.\n");
+
+                    input = getNumber();
                     switch(input){
                         case 1:
                             System.out.println("What student id you want to search.");
-                            studentId = CommandLineFunctions.getNumber();
+                            studentId = getNumber();
                             student = studentDaoList.findById(studentId);
                             if(student == null){
                                 break;
@@ -201,7 +210,7 @@ public class UserInterface {
                             break;
                         case 2:
                             System.out.println("What student name you want to search.");
-                            String studentName = CommandLineFunctions.getStringFromUser();
+                            String studentName = getStringFromUser();
                             List<Student> foundStudents = studentDaoList.findByName(studentName);
                             if (foundStudents == null){
                                 break;
@@ -215,7 +224,7 @@ public class UserInterface {
                             break;
                         case 3:
                             System.out.println("What student email you want to search.");
-                            String studentEmail = CommandLineFunctions.getStringFromUser();
+                            String studentEmail = getStringFromUser();
                             student = studentDaoList.findByEmail(studentEmail);
                             if(student == null){
                                 break;
@@ -224,6 +233,8 @@ public class UserInterface {
                                     "\nStudent name: " + student.getName() +
                                     "\nStudent address: " + student.getAddress() +
                                     "\nStudent email: " + student.getEmail());
+                            break;
+                        case 4:
                             break;
                         default:
                             System.out.println("Not a valid input!");
@@ -235,12 +246,13 @@ public class UserInterface {
                     System.out.print("\nPick a option to find course with." +
                             "\n1. Find by id." +
                             "\n2. Find by name." +
-                            "\n3. Find by start date.\n");
-                    input = CommandLineFunctions.getNumber();
+                            "\n3. Find by start date." +
+                            "\n3. Back to main menu.\n");
+                    input = getNumber();
                     switch(input){
                         case 1:
                             System.out.println("What course id you want to search.");
-                            courseId = CommandLineFunctions.getNumber();
+                            courseId = getNumber();
                             course = courseDaoList.findById(courseId);
                             if(course == null){
                                 break;
@@ -252,7 +264,7 @@ public class UserInterface {
                             break;
                         case 2:
                             System.out.println("What course name you want to search.");
-                            String courseName = CommandLineFunctions.getStringFromUser();
+                            String courseName = getStringFromUser();
                             List<Course> foundCourses = courseDaoList.findByName(courseName);
                             if(foundCourses == null){
                                 break;
@@ -270,7 +282,7 @@ public class UserInterface {
                             boolean wrongFormatCheck = true;
                             while (wrongFormatCheck) {
                                 try {
-                                    LocalDate date = LocalDate.parse(CommandLineFunctions.getStringFromUser(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                                    LocalDate date = LocalDate.parse(getStringFromUser(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                                     foundCourses = courseDaoList.findByDate(date);
                                     wrongFormatCheck = false;
                                 }catch (DateTimeParseException e){
@@ -288,6 +300,8 @@ public class UserInterface {
                                         "\nCourse weeks duration: " + foundCourses.get(i).getWeekDuration() + "\n");
                             }
                             break;
+                        case 4:
+                            break;
                         default:
                             System.out.println("Not a valid input!");
                             break;
@@ -296,7 +310,7 @@ public class UserInterface {
                 case 11:
                     courseList();
                     System.out.println("What course you wanna check students from type in the course Id:");
-                    courseId = CommandLineFunctions.getNumber();
+                    courseId = getNumber();
                     course = courseDaoList.findById(courseId);
                     if(course == null){
                         break;
@@ -314,8 +328,12 @@ public class UserInterface {
                 case 13:
                     courseList();
                     break;
+                case 14:
+                    System.out.println("Bye see you next time.");
+                    running = false;
+                    break;
                 default:
-                    System.out.println("Not a valid input!");
+                    System.out.println("Not a valid choose!");
                     break;
             }
         }
@@ -338,5 +356,23 @@ public class UserInterface {
             "\nStudent email: " + studentDaoList.findAll().get(i).getEmail() + "\n");
 
         }
+    }
+
+    static String getStringFromUser(){
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine(); }
+
+    static int getNumber(){
+        boolean valid = false;
+        int number = 0;
+        while(!valid){
+            try{
+                number = Integer.parseInt(getStringFromUser().trim());
+                valid = true;
+            }catch(NumberFormatException e){
+                System.out.println("Input was not a number.");
+            }
+        }
+        return number;
     }
 }
