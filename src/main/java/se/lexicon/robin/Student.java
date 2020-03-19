@@ -45,4 +45,12 @@ public class Student {
     public void reset(){
         counter = 0;
     }
+
+    @Override
+    public String toString() {
+        return "\nStudent id = " + id +
+                "\nStudent name = " + name +
+                "\nStudent email = " + email +
+                "\nStudent address = " + address;
+    }
 }

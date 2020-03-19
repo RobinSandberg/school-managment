@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Scanner;
 
 public class UserInterface {
 
@@ -37,22 +36,19 @@ public class UserInterface {
                     "\n14.Exit." +
                     "\n: INPUT: ");
 
-            int input = getNumber();
+            int input = commandLineFunctions.getNumber();
 
             switch (input) {
                 case 1:
                     Student student = commandLineFunctions.createNewStudent();
                     student = studentDaoList.saveStudent(student);
                     System.out.println("Student added." +
-                            "Student id: " + student.getId() +
-                            "\nStudent name: " + student.getName() +
-                            "\nStudent address: " + student.getAddress() +
-                            "\nStudent email: " + student.getEmail());
+                            student.toString());
                     break;
                 case 2:
                     studentList();
                     System.out.println("What student you wanna edit type in the student Id:");
-                    int studentId = getNumber();
+                    int studentId = commandLineFunctions.getNumber();
                     student = studentDaoList.findById(studentId);
                     if(student == null){
                         break;
@@ -63,7 +59,7 @@ public class UserInterface {
                         "\n3. Student email." +
                         "\n4. Back to main menu." +
                         "\n: INPUT: ");
-                    input = getNumber();
+                    input = commandLineFunctions.getNumber();
                     switch(input){
                         case 1:
                             student = commandLineFunctions.editStudentName(student);
@@ -88,7 +84,7 @@ public class UserInterface {
                 case 3:
                     studentList();
                     System.out.println("What student you wanna remove type in the student Id:");
-                    studentId = getNumber();
+                    studentId = commandLineFunctions.getNumber();
                     student = studentDaoList.findById(studentId);
                     boolean removed = studentDaoList.deleteStudent(student);
                     System.out.println("Student removed: " + removed);
@@ -97,15 +93,12 @@ public class UserInterface {
                     Course course = commandLineFunctions.createNewCourse();
                     course = courseDaoList.saveCourse(course);
                     System.out.println("course added" +
-                            "Course id: " + course.getId() +
-                            "\nCourse name: " + course.getCourseName() +
-                            "\nCourse start date: " + course.getStartDate() +
-                            "\nCourse weeks duration: " + course.getWeekDuration());
+                            course.toString());
                     break;
                 case 5:
                     courseList();
                     System.out.println("What course you wanna edit type in the course Id:");
-                    int courseId = getNumber();
+                    int courseId = commandLineFunctions.getNumber();
                     course = courseDaoList.findById(courseId);
                     if(course == null){
                         break;
@@ -116,7 +109,7 @@ public class UserInterface {
                             "\n3. Course  week duration." +
                             "\n4. Back to main menu." +
                             "\n: INPUT: ");
-                    input = getNumber();
+                    input = commandLineFunctions.getNumber();
                     switch(input) {
                         case 1:
                             course = commandLineFunctions.editCourseName(course);
@@ -141,7 +134,7 @@ public class UserInterface {
                 case 6:
                     courseList();
                     System.out.println("What course you wanna remove type in the course Id:");
-                    courseId = getNumber();
+                    courseId = commandLineFunctions.getNumber();
                     course = courseDaoList.findById(courseId);
                     removed = courseDaoList.removeCourse(course);
                     System.out.println("Course removed: " + removed);
@@ -149,14 +142,14 @@ public class UserInterface {
                 case 7:
                     courseList();
                     System.out.println("What course you wanna register a student to type in the course Id:");
-                    courseId = getNumber();
+                    courseId = commandLineFunctions.getNumber();
                     course = courseDaoList.findById(courseId);
                     if(course == null){
                         break;
                     }
                     studentList();
                     System.out.println("What student you wanna register to this course type in the student Id:");
-                    studentId = getNumber();
+                    studentId = commandLineFunctions.getNumber();
                     student = studentDaoList.findById(studentId);
                     if(student == null){
                         break;
@@ -167,19 +160,16 @@ public class UserInterface {
                 case 8:
                     courseList();
                     System.out.println("What course you wanna unregister a student from type in the course Id:");
-                    courseId = getNumber();
+                    courseId = commandLineFunctions.getNumber();
                     course = courseDaoList.findById(courseId);
                     if(course == null){
                         break;
                     }
                     for(int i = 0; i < course.getStudents().size(); i++){
-                        System.out.println("Student Id: " +  course.getStudents().get(i).getId() +
-                        "\nStudent name: " +  course.getStudents().get(i).getName() +
-                        "\nStudent Address: " +  course.getStudents().get(i).getAddress() +
-                        "\nStudent email: " +  course.getStudents().get(i).getEmail() + "\n");
+                        System.out.println(course.getStudents().get(i).toString() + "\n");
                     }
                     System.out.println("What student you wanna unregister from this course type in the student Id:");
-                    studentId = getNumber();
+                    studentId = commandLineFunctions.getNumber();
                     student = studentDaoList.findById(studentId);
                     if(student == null){
                         break;
@@ -194,45 +184,36 @@ public class UserInterface {
                             "\n3. Find by email." +
                             "\n4. Back to main menu.\n");
 
-                    input = getNumber();
+                    input = commandLineFunctions.getNumber();
                     switch(input){
                         case 1:
                             System.out.println("What student id you want to search.");
-                            studentId = getNumber();
+                            studentId = commandLineFunctions.getNumber();
                             student = studentDaoList.findById(studentId);
                             if(student == null){
                                 break;
                             }
-                            System.out.println("Student id: " + student.getId() +
-                                    "\nStudent name: " + student.getName() +
-                                    "\nStudent address: " + student.getAddress() +
-                                    "\nStudent email: " + student.getEmail());
+                            System.out.println(student.toString());
                             break;
                         case 2:
                             System.out.println("What student name you want to search.");
-                            String studentName = getStringFromUser();
+                            String studentName = commandLineFunctions.getStringFromUser();
                             List<Student> foundStudents = studentDaoList.findByName(studentName);
                             if (foundStudents == null){
                                 break;
                             }
                             for(int i = 0; i < foundStudents.size(); i++){
-                                System.out.println("Student id: " + foundStudents.get(i).getId() +
-                                        "\nStudent name: " + foundStudents.get(i).getName() +
-                                        "\nStudent address: " + foundStudents.get(i).getAddress() +
-                                        "\nStudent email: " + foundStudents.get(i).getEmail() + "\n");
+                                System.out.println(foundStudents.get(i).toString() + "\n");
                             }
                             break;
                         case 3:
                             System.out.println("What student email you want to search.");
-                            String studentEmail = getStringFromUser();
+                            String studentEmail = commandLineFunctions.getStringFromUser();
                             student = studentDaoList.findByEmail(studentEmail);
                             if(student == null){
                                 break;
                             }
-                            System.out.println("Student id: " + student.getId() +
-                                    "\nStudent name: " + student.getName() +
-                                    "\nStudent address: " + student.getAddress() +
-                                    "\nStudent email: " + student.getEmail());
+                            System.out.println(student.toString());
                             break;
                         case 4:
                             break;
@@ -248,32 +229,26 @@ public class UserInterface {
                             "\n2. Find by name." +
                             "\n3. Find by start date." +
                             "\n3. Back to main menu.\n");
-                    input = getNumber();
+                    input = commandLineFunctions.getNumber();
                     switch(input){
                         case 1:
                             System.out.println("What course id you want to search.");
-                            courseId = getNumber();
+                            courseId = commandLineFunctions.getNumber();
                             course = courseDaoList.findById(courseId);
                             if(course == null){
                                 break;
                             }
-                            System.out.println("Course id: " + course.getId() +
-                                    "\nCourse name: " + course.getCourseName() +
-                                    "\nCourse start date: " + course.getStartDate() +
-                                    "\nCourse weeks duration: " + course.getWeekDuration());
+                            System.out.println(course.toString());
                             break;
                         case 2:
                             System.out.println("What course name you want to search.");
-                            String courseName = getStringFromUser();
+                            String courseName = commandLineFunctions.getStringFromUser();
                             List<Course> foundCourses = courseDaoList.findByName(courseName);
                             if(foundCourses == null){
                                 break;
                             }
                             for(int i = 0; i < foundCourses.size(); i++){
-                                System.out.println("Course id: " + foundCourses.get(i).getId() +
-                                        "\nCourse name: " + foundCourses.get(i).getCourseName() +
-                                        "\nCourse start date: " + foundCourses.get(i).getStartDate() +
-                                        "\nCourse weeks duration: " + foundCourses.get(i).getWeekDuration() + "\n");
+                                System.out.println(foundCourses.get(i).toString() + "\n");
                             }
                             break;
                         case 3:
@@ -282,7 +257,7 @@ public class UserInterface {
                             boolean wrongFormatCheck = true;
                             while (wrongFormatCheck) {
                                 try {
-                                    LocalDate date = LocalDate.parse(getStringFromUser(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                                    LocalDate date = LocalDate.parse(commandLineFunctions.getStringFromUser(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                                     foundCourses = courseDaoList.findByDate(date);
                                     wrongFormatCheck = false;
                                 }catch (DateTimeParseException e){
@@ -294,10 +269,7 @@ public class UserInterface {
                                 break;
                             }
                             for(int i = 0; i < foundCourses.size(); i++){
-                                System.out.println("Course id: " + foundCourses.get(i).getId() +
-                                        "\nCourse name: " + foundCourses.get(i).getCourseName() +
-                                        "\nCourse start date: " + foundCourses.get(i).getStartDate() +
-                                        "\nCourse weeks duration: " + foundCourses.get(i).getWeekDuration() + "\n");
+                                System.out.println(foundCourses.get(i).toString() + "\n");
                             }
                             break;
                         case 4:
@@ -310,16 +282,13 @@ public class UserInterface {
                 case 11:
                     courseList();
                     System.out.println("What course you wanna check students from type in the course Id:");
-                    courseId = getNumber();
+                    courseId = commandLineFunctions.getNumber();
                     course = courseDaoList.findById(courseId);
                     if(course == null){
                         break;
                     }
                     for(int i = 0; i < course.getStudents().size(); i++){
-                        System.out.println("Student Id: " +  course.getStudents().get(i).getId() +
-                                "\nStudent name: " +  course.getStudents().get(i).getName() +
-                                "\nStudent Address: " +  course.getStudents().get(i).getAddress() +
-                                "\nStudent email: " +  course.getStudents().get(i).getEmail() + "\n");
+                        System.out.println(course.getStudents().get(i).toString() + "\n");
                     }
                     break;
                 case 12:
@@ -341,38 +310,14 @@ public class UserInterface {
 
     public void courseList(){
         for(int i = 0; i < courseDaoList.findAll().size(); i++){
-            System.out.println("Course Id: " + courseDaoList.findAll().get(i).getId() +
-            "\nCourse name: " + courseDaoList.findAll().get(i).getCourseName() +
-            "\nCourse start date: " + courseDaoList.findAll().get(i).getStartDate() +
-            "\nCourse week duration: " + courseDaoList.findAll().get(i).getWeekDuration() + "\n");
+            System.out.println(courseDaoList.findAll().get(i).toString() + "\n");
         }
     }
 
     public void studentList(){
         for(int i = 0; i < studentDaoList.findAll().size(); i++){
-            System.out.println("Student Id: " + studentDaoList.findAll().get(i).getId() +
-            "\nStudent name: " + studentDaoList.findAll().get(i).getName() +
-            "\nStudent Address: " + studentDaoList.findAll().get(i).getAddress() +
-            "\nStudent email: " + studentDaoList.findAll().get(i).getEmail() + "\n");
+            System.out.println(studentDaoList.findAll().get(i).toString() + "\n");
 
         }
-    }
-
-    static String getStringFromUser(){
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine(); }
-
-    static int getNumber(){
-        boolean valid = false;
-        int number = 0;
-        while(!valid){
-            try{
-                number = Integer.parseInt(getStringFromUser().trim());
-                valid = true;
-            }catch(NumberFormatException e){
-                System.out.println("Input was not a number.");
-            }
-        }
-        return number;
     }
 }

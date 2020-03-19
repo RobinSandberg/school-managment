@@ -52,4 +52,13 @@ public class StudentTest {
             student.setAddress("Roadhouse");
             Assert.assertEquals("Roadhouse", student.getAddress());
         }
+
+        @Test
+        public void toStringSuccessfully(){
+            String toString = student.toString();
+
+            Assert.assertTrue(toString.contains(student.getName()));
+            Assert.assertTrue(toString.contains(student.getEmail()));
+            Assert.assertTrue(toString.contains(student.getAddress()));
+        }
 }

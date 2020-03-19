@@ -8,7 +8,6 @@ import se.lexicon.robin.data_access.StudentDaoList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 public class CommandLineFunctions implements CommandLine{
     StudentDaoList studentDaoList = new StudentDaoList();
@@ -165,12 +164,11 @@ public class CommandLineFunctions implements CommandLine{
     }
 
 
-    static String getStringFromUser(){
-        Scanner scanner = new Scanner(System.in);
+    public String getStringFromUser(){
         return scanner.nextLine();
     }
 
-    static int getNumber(){
+    public int getNumber(){
         boolean valid = false;
         int number = 0;
         while(!valid){

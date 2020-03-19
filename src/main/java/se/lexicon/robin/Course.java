@@ -62,4 +62,12 @@ public class Course {
     public void reset(){
         counter = 0;
     }
+
+    @Override
+    public String toString() {
+        return "\nCourse id = " + id +
+                "\nCourse name = " + courseName +
+                "\nCourse start date = " + startDate +
+                "\nCourse week duration = " + weekDuration;
+    }
 }

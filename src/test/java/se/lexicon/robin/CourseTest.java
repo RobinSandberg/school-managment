@@ -82,4 +82,14 @@ public class CourseTest {
         Assert.assertEquals(0 , course.getStudents().size());
 
     }
+
+    @Test
+    public void toStringSuccessfully(){
+        String toString = course.toString();
+        String weekDuration =  ""+course.getWeekDuration();
+
+        Assert.assertTrue(toString.contains(course.getCourseName()));
+        Assert.assertTrue(toString.contains(course.getStartDate().toString()));
+        Assert.assertTrue(toString.contains(weekDuration));
+    }
 }

@@ -19,4 +19,5 @@ public interface CommandLine {
     boolean registerStudent(Course course,Student student);
     boolean unregisterStudent(Course course,Student student);
 
+    Scanner scanner = new Scanner(System.in);
 }
