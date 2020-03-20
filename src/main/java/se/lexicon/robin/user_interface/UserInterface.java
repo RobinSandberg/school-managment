@@ -30,7 +30,7 @@ public class UserInterface {
                     "\n8. Unregister student to a course." +
                     "\n9. Find student." +
                     "\n10. Find course." +
-                    "\n11. Get students in course." +
+                    "\n11. Get students in a course." +
                     "\n12. Get courses a student goes." +
                     "\n13. Show all students." +
                     "\n14. Show all course." +
