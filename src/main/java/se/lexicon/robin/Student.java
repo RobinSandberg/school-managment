@@ -1,5 +1,8 @@
 package se.lexicon.robin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Student {
     private final int id;
     private static int counter = 0;
@@ -7,11 +10,14 @@ public class Student {
     private String email;
     private String address;
 
+    List<Course> courseList;
+
     public Student(String name, String email , String address){
         this.name = name;
         this.email = email;
         this.address = address;
         this.id = ++counter;
+        courseList = new ArrayList<>();
     }
 
     public int getId(){
@@ -44,6 +50,18 @@ public class Student {
 
     public void reset(){
         counter = 0;
+    }
+
+    public List<Course> getCourseList(){
+        return this.courseList;
+    }
+
+    public void addCourse(Course course){
+        this.courseList.add(course);
+    }
+
+    public void removeCourse(Course course){
+        this.courseList.remove(course);
     }
 
     @Override

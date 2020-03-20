@@ -147,6 +147,7 @@ public class CommandLineFunctions implements CommandLine{
     public boolean registerStudent(Course course, Student student){
         if(!course.getStudents().contains(student)){
             course.register(student);
+            student.addCourse(course);
             return true;
         }
         System.out.println("Student already in this course.");
@@ -157,6 +158,7 @@ public class CommandLineFunctions implements CommandLine{
     public boolean unregisterStudent(Course course,Student student){
         if(course.getStudents().contains(student)){
             course.unregister(student);
+            student.removeCourse(course);
             return true;
         }
         System.out.println("Student was not in this course.");

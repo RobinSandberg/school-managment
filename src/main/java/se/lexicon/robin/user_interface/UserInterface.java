@@ -31,9 +31,10 @@ public class UserInterface {
                     "\n9. Find student." +
                     "\n10. Find course." +
                     "\n11. Get students in course." +
-                    "\n12. Show all students." +
-                    "\n13. Show all course." +
-                    "\n14.Exit." +
+                    "\n12. Get courses a student goes." +
+                    "\n13. Show all students." +
+                    "\n14. Show all course." +
+                    "\n15.Exit." +
                     "\n: INPUT: ");
 
             int input = commandLineFunctions.getNumber();
@@ -292,12 +293,24 @@ public class UserInterface {
                     }
                     break;
                 case 12:
-                    studentList();
+                   studentList();
+                    System.out.println("What student you wanna check courses from type in the student Id:");
+                    studentId = commandLineFunctions.getNumber();
+                    student = studentDaoList.findById(studentId);
+                    if(student == null){
+                        break;
+                    }
+                    for(int i = 0; i < student.getCourseList().size(); i++){
+                        System.out.println(student.getCourseList().get(i).toString() + "\n");
+                    }
                     break;
                 case 13:
-                    courseList();
+                    studentList();
                     break;
                 case 14:
+                    courseList();
+                    break;
+                case 15:
                     System.out.println("Bye see you next time.");
                     running = false;
                     break;
