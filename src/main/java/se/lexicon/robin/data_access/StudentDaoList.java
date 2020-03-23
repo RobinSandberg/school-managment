@@ -24,9 +24,9 @@ public class StudentDaoList implements StudentDao {
 
     @Override
     public Student findByEmail(String email){
-        for(int i = 0; i < students.size(); i++){
-            if(students.get(i).getEmail().equalsIgnoreCase(email)){
-                return students.get(i);
+        for (Student student : students) {
+            if (student.getEmail().equalsIgnoreCase(email)) {
+                return student;
             }
         }
         System.out.println("Student email don't exist.");
@@ -36,19 +36,19 @@ public class StudentDaoList implements StudentDao {
     @Override
     public List<Student> findByName(String name){
        List<Student> foundByNameStudents = new ArrayList<>();
-       for (int i = 0; i< students.size(); i++){
-           if (students.get(i).getName().toLowerCase().contains(name.toLowerCase())){
-               foundByNameStudents.add(students.get(i));
-           }
-       }
+        for (Student student : students) {
+            if (student.getName().toLowerCase().contains(name.toLowerCase())) {
+                foundByNameStudents.add(student);
+            }
+        }
        return foundByNameStudents;
     }
 
     @Override
     public Student findById(int id){
-        for(int i = 0; i < students.size(); i++){
-            if(students.get(i).getId() == id){
-                return students.get(i);
+        for (Student student : students) {
+            if (student.getId() == id) {
+                return student;
             }
         }
         System.out.println("Student id don't exist.");

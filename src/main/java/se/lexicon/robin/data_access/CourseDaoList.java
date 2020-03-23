@@ -25,11 +25,11 @@ public class CourseDaoList implements CourseDao {
 
     @Override
     public Course findById(int id){
-      for(int i = 0; i < courses.size(); i++){
-          if(courses.get(i).getId() == id){
-              return courses.get(i);
-          }
-      }
+        for (Course course : courses) {
+            if (course.getId() == id) {
+                return course;
+            }
+        }
         System.out.println("Course id don't exist.");
       return null;
     }
@@ -37,9 +37,9 @@ public class CourseDaoList implements CourseDao {
     @Override
     public List<Course> findByName(String name){
         List<Course> foundByNameCourses = new ArrayList<>();
-        for(int i = 0; i < courses.size(); i++){
-            if(courses.get(i).getCourseName().toLowerCase().contains(name.toLowerCase())){
-                foundByNameCourses.add(courses.get(i));
+        for (Course course : courses) {
+            if (course.getCourseName().toLowerCase().contains(name.toLowerCase())) {
+                foundByNameCourses.add(course);
             }
         }
         return foundByNameCourses;
@@ -48,9 +48,9 @@ public class CourseDaoList implements CourseDao {
     @Override
     public List<Course> findByDate(LocalDate date){
         List<Course> foundByDateCourses = new ArrayList<>();
-        for(int i = 0; i < courses.size(); i++){
-            if(courses.get(i).getStartDate().equals(date)){
-                foundByDateCourses.add(courses.get(i));
+        for (Course course : courses) {
+            if (course.getStartDate().equals(date)) {
+                foundByDateCourses.add(course);
             }
         }
         return foundByDateCourses;
